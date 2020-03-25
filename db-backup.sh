@@ -16,10 +16,10 @@ encrypted_backup_path=${HOME}/backups/encrypted-db-backups
 
 # the script assumes your sites are stored like ~/sites/example.com, ~/sites/example.net, ~/sites/example.org and so on.
 # if you have a different pattern, such as ~/app/example.com, please change the following to fit the server environment!
-SITES_PATH=${HOME}/sites
+SITES_PATH=${HOME}
 
 # if WP is in a sub-directory, please leave this empty!
-PUBLIC_DIR=public
+PUBLIC_DIR=
 
 # a passphrase for encryption, in order to being able to use almost any special characters use ""
 PASSPHRASE=
@@ -28,7 +28,7 @@ PASSPHRASE=
 AUTODELETEAFTER=60
 
 # You may hard-code the domain name
-DOMAIN=
+DOMAIN=avalonchurch.org
 
 # AWS Variable can be hard-coded here
 AWS_S3_BUCKET_NAME=
