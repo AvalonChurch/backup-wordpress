@@ -11,8 +11,8 @@
 # aws configure (as normal user)
 
 # where to store the database backups?
-BACKUP_PATH=${HOME}/backups/databases
-encrypted_backup_path=${HOME}/backups/encrypted-db-backups
+BACKUP_PATH=${HOME}/mail/databases
+encrypted_backup_path=${HOME}/mail/encrypted-db-backups
 
 # the script assumes your sites are stored like ~/sites/example.com, ~/sites/example.net, ~/sites/example.org and so on.
 # if you have a different pattern, such as ~/app/example.com, please change the following to fit the server environment!
@@ -46,7 +46,7 @@ script_name=$(basename "$0")
 # create log directory if it doesn't exist
 [ ! -d ${HOME}/log ] && mkdir ${HOME}/log
 
-LOG_FILE=${HOME}/log/backups.log
+LOG_FILE=${HOME}/log/mail.log
 exec > >(tee -a ${LOG_FILE} )
 exec 2> >(tee -a ${LOG_FILE} >&2)
 

@@ -35,7 +35,7 @@ BUCKET_NAME=
 # create log directory if it doesn't exist
 [ ! -d ${HOME}/log ] && mkdir ${HOME}/log
 
-LOG_FILE=${HOME}/log/backups.log
+LOG_FILE=${HOME}/log/mail.log
 exec > >(tee -a ${LOG_FILE} )
 exec 2> >(tee -a ${LOG_FILE} >&2)
 
@@ -100,7 +100,7 @@ if [ ! -d "$BACKUP_PATH" ] && [ "$(mkdir -p $BACKUP_PATH)" ]; then
     echo 'You may want to create it manually'
     exit 1
 fi
-ENCRYPTED_BACKUP_PATH=${HOME}/backups/encrypted-full
+ENCRYPTED_BACKUP_PATH=${HOME}/mail/encrypted-full
 if [ -n "$PASSPHRASE" ] && [ ! -d "$ENCRYPTED_BACKUP_PATH" ] && [ "$(mkdir -p $ENCRYPTED_BACKUP_PATH)" ]; then
     echo "ENCRYPTED_BACKUP_PATH is not found at $ENCRYPTED_BACKUP_PATH. The script can't create it, either!"
     echo 'You may want to create it manually'
@@ -147,8 +147,8 @@ FULL_BACKUP_FILE_NAME=${BACKUP_PATH}/full-${DOMAIN}-$timestamp.tar.gz
 
 # let's encrypt everything with a passphrase before sending to AWS 
 # this is a simple encryption using gpg
-ENCRYPTED_FULL_BACKUP_FILE_NAME=${ENCRYPTED_BACKUP_PATH}/full-backup-${DOMAIN}-$timestamp.tar.gz.gpg
-LATEST_FULL_BACKUP_FILE_NAME=${BACKUP_PATH}/full-backup-${DOMAIN}-latest.tar.gz
+ENCRYPTED_FULL_BACKUP_FILE_NAME=${ENCRYPTED_BACKUP_PATH}/full-${DOMAIN}-$timestamp.tar.gz.gpg
+LATEST_FULL_BACKUP_FILE_NAME=${BACKUP_PATH}/full-${DOMAIN}-latest.tar.gz
 
 if [ ! -z "$PASSPHRASE" ]; then
     # using symmetric encryption
@@ -193,9 +193,9 @@ if [ "$BUCKET_NAME" != "" ]; then
     fi
 
     if [ -z "$PASSPHRASE" ]; then
-        $aws_cli s3 cp ${FULL_BACKUP_FILE_NAME} s3://$BUCKET_NAME/${DOMAIN}/full-backups/
+        $aws_cli s3 cp ${FULL_BACKUP_FILE_NAME} s3://$BUCKET_NAME/${DOMAIN}/full/
     else
-        $aws_cli s3 cp ${ENCRYPTED_FULL_BACKUP_FILE_NAME} s3://$BUCKET_NAME/${DOMAIN}/full-backups/
+        $aws_cli s3 cp ${ENCRYPTED_FULL_BACKUP_FILE_NAME} s3://$BUCKET_NAME/${DOMAIN}/full/
     fi
 
     if [ "$?" != "0" ]; then

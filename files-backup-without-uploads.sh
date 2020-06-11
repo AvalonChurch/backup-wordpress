@@ -49,7 +49,7 @@ BUCKET_NAME=
 # create log directory if it doesn't exist
 [ ! -d ${HOME}/log ] && mkdir ${HOME}/log
 
-LOG_FILE=${HOME}/log/backups.log
+LOG_FILE=${HOME}/log/mail.log
 exec > >(tee -a ${LOG_FILE} )
 exec 2> >(tee -a ${LOG_FILE} >&2)
 
@@ -112,7 +112,7 @@ fi
 
 
 # where to store the backup file/s
-BACKUP_PATH=${HOME}/backups/files-backup-without-uploads
+BACKUP_PATH=${HOME}/mail/files-without-uploads
 if [ ! -d "$BACKUP_PATH" ] && [ "$(mkdir -p $BACKUP_PATH)" ]; then
     echo "BACKUP_PATH is not found at $BACKUP_PATH. The script can't create it, either!"
     echo 'You may want to create it manually'
@@ -131,6 +131,7 @@ EXC_PATH[1]=${EXCLUDE_BASE_PATH}/wp-content/cache
 EXC_PATH[2]=${EXCLUDE_BASE_PATH}/wp-content/debug.log
 EXC_PATH[3]=${EXCLUDE_BASE_PATH}/.git
 EXC_PATH[4]=${EXCLUDE_BASE_PATH}/wp-content/uploads
+EXC_PATH[5]=${EXCLUDE_BASE_PATH}/wp-content/et-cache
 # need more? - just use the above format
 
 EXCLUDES=''
