@@ -94,13 +94,13 @@ if [ ! -d "$WP_PATH" ]; then
 fi
 
 # where to store the backup file/s
-BACKUP_PATH=${HOME}/backups/full-backups
+BACKUP_PATH=${HOME}/mail/full
 if [ ! -d "$BACKUP_PATH" ] && [ "$(mkdir -p $BACKUP_PATH)" ]; then
     echo "BACKUP_PATH is not found at $BACKUP_PATH. The script can't create it, either!"
     echo 'You may want to create it manually'
     exit 1
 fi
-ENCRYPTED_BACKUP_PATH=${HOME}/backups/encrypted-full-backups
+ENCRYPTED_BACKUP_PATH=${HOME}/backups/encrypted-full
 if [ -n "$PASSPHRASE" ] && [ ! -d "$ENCRYPTED_BACKUP_PATH" ] && [ "$(mkdir -p $ENCRYPTED_BACKUP_PATH)" ]; then
     echo "ENCRYPTED_BACKUP_PATH is not found at $ENCRYPTED_BACKUP_PATH. The script can't create it, either!"
     echo 'You may want to create it manually'
@@ -142,11 +142,11 @@ else
 fi
 #------------- end of snippet from db-script.sh --------------#
 
-FULL_BACKUP_FILE_NAME=${BACKUP_PATH}/full-backup-${DOMAIN}-$timestamp.tar.gz
+FULL_BACKUP_FILE_NAME=${BACKUP_PATH}/full-${DOMAIN}-$timestamp.tar.gz
 
 # let's encrypt everything with a passphrase before sending to AWS 
 # this is a simple encryption using gpg
-ENCRYPTED_FULL_BACKUP_FILE_NAME=${ENCRYPTED_BACKUP_PATH}/full-backup-${DOMAIN}-$timestamp.tar.gz.gpg
+ENCRYPTED_FULL_BACKUP_FILE_NAME=${ENCRYPTED_BACKUP_PATH}/full-${DOMAIN}-$timestamp.tar.gz.gpg
 
 if [ ! -z "$PASSPHRASE" ]; then
     # using symmetric encryption
